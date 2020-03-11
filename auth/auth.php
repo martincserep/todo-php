@@ -7,18 +7,18 @@ $home_url="http://localhost" . $context_path;
 
 
 if($_POST){
-    include_once "../services/simpleServices/SimpleUserServices.php";
+    include_once "../services/SimpleServices/SimpleUserService.php";
 
-    $sevices = new SimpleUserServices();
+    $services = new SimpleUserService();
 
     // check if email and password are in the Database
     $username=$_POST['username'];
     $password = $_POST['password'];
 
-    $userExist = $sevices->checkUserExist($username);
+    $userExist = $services->checkUserExist($username);
 
 
-    $user = $sevices->getUserByUsername($username);
+    $user = $services->getUserByUsername($username);
 
     //$user->setStatus(1);
     //if ($email_exists && password_verify($_POST['password'], $user->getPassword()) && $user->getStatus()){

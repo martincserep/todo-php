@@ -16,7 +16,7 @@ abstract class AbstractDao {
         $this->conn = null;
 
         try{
-            $this->conn = pgpg_connect( "$host $port $dbname $credentials"  );
+            $this->conn = pg_connect( "$this->host $this->port $this->dbname $this->credentials"  );
  
         }catch(exception $exception){
             echo "Connection error: " . $exception->getMessage();
