@@ -15,57 +15,56 @@ class DatabaseUserDao extends AbstractDao implements UserDao
 
     public function GetUserByUsername($username)
     {
-        try {
-            $sql = "SELECT id, username, password, FROM users WHERE username = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(1, $username, PDO::PARAM_STR);
-            $stmt->execute();
-            while ($row = $stmt->fetch()){
-                return $this->FetchUser($row);
-            }
-        } catch (PDOException $pe) {
-            die("Could not connect to the Database! " . $pe->getMessage());
+        $sql =<<<EOF
+           SELECT * FROM users WHERE username = '$username';
+        EOF;
+
+        $ret = pg_query($this->conn, $sql);
+        if(!$ret) {
+            echo pg_last_error($this->conn);
+            exit;
+        }
+        while($row = pg_fetch_row($ret)) {
+
+            return $this->FetchUser($row);
         }
         return null;
     }
 
     public function UserExist($username)
     {
-        $sql =<<<EOF
-            SELECT * FROM users WHERE username = $username;
+        $sql = <<<EOF
+            SELECT * FROM users WHERE username = '$username';
         EOF;
 
-        $ret = pg_query($conn, $sql);
-        if(!$ret) {
-        echo pg_last_error($conn);
-        exit;
-   } 
-   while($row = pg_fetch_row($ret)) {
-      echo "id = ". $row[0] . "\n";
-      echo "name = ". $row[1] ."\n";
-      echo "password = ". $row[2] ."\n";
-   }
-   echo "Operation done successfully\n";
+        $ret = pg_query($this->conn, $sql);
+        if (!$ret) {
+            echo pg_last_error($this->conn);
+            exit;
+        }
+        while ($row = pg_fetch_row($ret)) {
+            return true;
+        }
+        return false;
     }
 
     public function RegisterUser($username, $password)
     {
+        $hashed = password_hash($password, PASSWORD_BCRYPT);
         $sql =<<<EOF
-            INSERT INTO users (username,password)
-            VALUES ($username, $password);
+            INSERT INTO users (username,password) VALUES ('$username', '$hashed');
         EOF;
 
-        $ret = pg_query($conn, $sql);
+        $ret = pg_query($this->conn, $sql);
         if(!$ret) {
-            echo pg_last_error($db);
+            echo pg_last_error($this->conn);
         } else {
             echo "Records created successfully\n";
         }
     }
 
     private function FetchUser($row){
-
-        return new User($row['id'], $row['username'], $row['password']);
+        return new User($row[0], $row[1], $row[2]);
     }
 
 

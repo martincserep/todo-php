@@ -20,7 +20,7 @@ class SimpleUserService implements UserService
         $this->userdao->RegisterUser($username, $password);
     }
     public function getUserByUsername($username) {
-        $this->userdao->GetUserByUsername($username);
+        return $this->userdao->GetUserByUsername($username);
     }
 
 

@@ -24,16 +24,17 @@ if($_POST){
     //if ($email_exists && password_verify($_POST['password'], $user->getPassword()) && $user->getStatus()){
 
     // validate login
-    if (!$userExist && $user == null) {
+    if (!$userExist) {
         $services -> registerUser($username, $password);
     }
-    if ($userExist && password_verify($_POST['password'], $user->getPassword()) && $user != null) {
+    //password_verify( )
+    if ($userExist && password_verify($_POST['password'], $user->getPassword()) && $user !== null) {
 
         // if it is, set the session value to true
         $_SESSION['logged_in'] = true;
         $_SESSION['user_id'] = $user->getId();
         $_SESSION['username'] = htmlspecialchars($user->getUsername(), ENT_QUOTES, 'UTF-8') ;
-
+        echo ('logged in');
     }
 
     // if username does not exist or password is wrong
