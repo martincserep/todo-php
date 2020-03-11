@@ -6,15 +6,27 @@ $date = new DateTime();
 $today = $date;
 
 
+
+if($_POST){
+    include_once './services/SimpleServices/SimpleTaskService.php';
+    $services = new SimpleTaskService();
+
+    $uid = 2;
+    $name=$_POST['name'];
+    $date = $_POST['date'];
+
+    $services ->addTask($uid,$name,$date);
+}
+
 ?>
 <div class="main">
     <div class='profile'>
         <div class="title">Profile</div>
-            <form>
+            <form method="post">
                 <label class='label'>Task name</label>
-                <input type='text' />
+                <input name="name" id="name" type='text' />
                 <label class='label'>Deadline</label>
-                <input min=<? echo new DateTime("Y-m-d") ?> type='date'/>
+                <input name="date" id="date" type='date'/>
                 <input type='submit' value='Send' />
             </form>
         <button>Logout</button>
@@ -25,9 +37,7 @@ $today = $date;
             ToDo
         </div>
         <div class="list">
-
-            <?php echo($today);
-            //  include_once "./todolist.php" ?>
+            <?php include_once "./todolist.php" ?>
         </div>
     </div>
 </div>

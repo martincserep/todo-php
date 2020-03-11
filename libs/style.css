@@ -98,6 +98,7 @@ input[type='submit']:focus{
 }
 
 .tasks {
+
     float: left;
     min-width: 360px;
     height: 100%;
@@ -121,8 +122,12 @@ input[type='submit']:focus{
 }
 
 .list {
+    -ms-overflow-style: none;
     color: var(--grey);
     margin: 5px 5%;
     overflow: scroll;
     height: calc(100% - 100px);
+}
+.list::-webkit-scrollbar {
+    display: none;
 }
