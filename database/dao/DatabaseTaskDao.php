@@ -14,7 +14,15 @@ class DatabaseTaskDao extends AbstractDao implements TaskDao
 
     public function getTasks($uid)
     {
-        // TODO: Implement getTasks() method.
+        $sql =<<<EOF
+            SELECT * FROM tasks WHERE uid=$uid;
+        EOF;
+        $ret = pg_query($this->conn, $sql);
+        $tasks = [];
+        while ($row = pg_fetch_row($ret)){
+            array_push($tasks,  $this->FetchUser($row));
+        }
+        return $tasks;
     }
 
     public function addTask($uid,$task,$deadline)
@@ -26,13 +34,15 @@ class DatabaseTaskDao extends AbstractDao implements TaskDao
         $ret = pg_query($this->conn, $sql);
         if(!$ret) {
             echo pg_last_error($this->conn);
-        } else {
-            echo "Records created successfully\n";
         }
     }
 
     public function deleteTask($id)
     {
         // TODO: Implement deleteTask() method.
+    }
+
+    private function FetchUser($row){
+        return new Task($row[0], $row[1], $row[2],$row[3]);
     }
 }

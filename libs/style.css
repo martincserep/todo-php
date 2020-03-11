@@ -131,3 +131,18 @@ input[type='submit']:focus{
 .list::-webkit-scrollbar {
     display: none;
 }
+
+.table {
+    width: 100%;
+    text-align: center;
+}
+.th {
+    font-size: 20px;
+    font-weight: bolder;
+}
+.td {
+    font-weight: lighter;
+}
+.thead {
+    border: 2px solid fuchsia;
+}
