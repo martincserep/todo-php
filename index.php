@@ -16,6 +16,8 @@ if($_POST){
     $date = $_POST['date'];
 
     $services ->addTask($uid,$name,$date);
+    header('location:index.php');
+
 }
 
 ?>
@@ -24,9 +26,9 @@ if($_POST){
         <div class="title">Profile</div>
             <form method="post">
                 <label class='label'>Task name</label>
-                <input name="name" id="name" type='text' />
+                <input value="" name="name" id="name" type='text' required />
                 <label class='label'>Deadline</label>
-                <input name="date" id="date" type='date'/>
+                <input value="" name="date" id="date" type='date' required/>
                 <input type='submit' value='Send' />
             </form>
         <button>Logout</button>

@@ -101,7 +101,6 @@ input[type='submit']:focus{
 
     float: left;
     min-width: 360px;
-    height: 100%;
     width: 60%;
     height: 500px;
     margin: 5%;
@@ -142,7 +141,4 @@ input[type='submit']:focus{
 }
 .td {
     font-weight: lighter;
-}
-.thead {
-    border: 2px solid fuchsia;
 }

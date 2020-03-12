@@ -48,7 +48,7 @@ if($_POST){
     <h2>Login to</h2>
     <h1>ToDo</h1>
     <input name='username' id='username' type='text' placeholder='username' required />
-    <input name='password' id='password'  placeholder='password' required />
+    <input name='password' id='password'  placeholder='password' type="password" required />
     <input type='submit' name= value='Send' />
     <h3>If you do not have an account, we will automatically create one. </h3>
 </form>

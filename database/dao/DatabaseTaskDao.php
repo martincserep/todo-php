@@ -39,7 +39,14 @@ class DatabaseTaskDao extends AbstractDao implements TaskDao
 
     public function deleteTask($id)
     {
-        // TODO: Implement deleteTask() method.
+        $sql =<<<EOF
+            DELETE FROM tasks WHERE id=$id;
+        EOF;
+
+        $ret = pg_query($this->conn, $sql);
+        if(!$ret) {
+            echo pg_last_error($this->conn);
+        }
     }
 
     private function FetchUser($row){
